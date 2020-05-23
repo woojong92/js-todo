@@ -23,6 +23,10 @@ h1 {
     box-sizing: border-box;
 }
 
+.todo-date {
+    color: #555555;
+}
+
 .todo-form input{
     box-sizing: border-box;
     outline: none;
@@ -31,6 +35,8 @@ h1 {
     height: 50px;
     font-size: 15px;
     background: #fff;
+    border: 0;
+    border-bottom: 1px solid cornsilk;
 }
 
 ul {
