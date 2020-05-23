@@ -5,17 +5,26 @@ const   todoForm = document.querySelector(".todo-form"),
 const TODO_LS = "todos"
 let todos = []
 
-function paintTodo(text) {
+function paintTodo(text, toggled) {
     const li = document.createElement("li")
-    const delBtn = document.createElement("button")
+    const toggleBtn = document.createElement("div")
+    const delBtn = document.createElement("div")
     const span = document.createElement("span")
     const newId = todos.length + 1
 
+    toggleBtn.classList.add("toggle-btn")
+    toggleBtn.addEventListener("click", toggleTodo)
+
+    delBtn.classList.add("del-btn")
     delBtn.innerHTML= "X";
     delBtn.addEventListener("click", deleteTodo);
     
     span.innerText = text;
+    if( toggled ) {
+        toggleBtn.classList.add("toggled")
+    }
     
+    li.appendChild(toggleBtn);
     li.appendChild(span);
     li.appendChild(delBtn);
     li.id = newId;
@@ -23,10 +32,26 @@ function paintTodo(text) {
     
     const todoObj = {
         text : text,
-        id : newId
+        id : newId,
+        toggled: false,
     };
     todos.push(todoObj);
     saveTodos();   
+}
+
+function toggleTodo(event) {
+    const btn = event.target;
+    const li = btn.parentNode;
+    
+    if( btn.classList.contains("toggled") ) {
+        btn.classList.remove("toggled")
+    }else {
+        btn.classList.add("toggled")
+    }
+
+    const changedToDos = todos.map( todo => todo.id !== parseInt(li.id) ? { ...todo} : { ...todo, toggled: !todo.toggled})
+    todos = changedToDos;
+    saveTodos()
 }
 
 function deleteTodo(event) {
@@ -47,7 +72,7 @@ function loadTodos() {
     if( loadedToDos !== null ) {
         const parsedToDos = JSON.parse(loadedToDos)
         parsedToDos.forEach(function(todo) {
-             paintTodo(todo.text);
+             paintTodo(todo.text, todo.toggled);
         });
     }
 }
