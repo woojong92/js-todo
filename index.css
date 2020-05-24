@@ -72,15 +72,22 @@ ul {
     border: 1px solid rgb(47, 194, 145);
 }
 
-.todo-list li .toggled {
+.todo-list li .toggle-btn.toggled {
     background: rgb(47, 194, 145);
     border: 1px solid rgb(47, 194, 145);
 }
 
 .todo-list li span{
+    font-style: normal;
     width: 400px;
     text-align: left;
     color: #2e2e2e;
+}
+
+.todo-list li span.toggled{
+    text-decoration: line-through;
+    font-style: oblique;
+    color: #555555;
 }
 
 .todo-list li .del-btn{

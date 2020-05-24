@@ -22,6 +22,7 @@ function paintTodo(text, toggled) {
     span.innerText = text;
     if( toggled ) {
         toggleBtn.classList.add("toggled")
+        span.classList.add("toggled")
     }
     
     li.appendChild(toggleBtn);
@@ -42,11 +43,14 @@ function paintTodo(text, toggled) {
 function toggleTodo(event) {
     const btn = event.target;
     const li = btn.parentNode;
+    const span = li.querySelector("span")
     
     if( btn.classList.contains("toggled") ) {
         btn.classList.remove("toggled")
+        span.classList.remove("toggled")
     }else {
         btn.classList.add("toggled")
+        span.classList.add("toggled")
     }
 
     const changedToDos = todos.map( todo => todo.id !== parseInt(li.id) ? { ...todo} : { ...todo, toggled: !todo.toggled})
